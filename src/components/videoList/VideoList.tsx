@@ -1,26 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
 import withWidth from "@material-ui/core/withWidth";
-
 import VerticalList from "./VerticalList";
 import HorizontalList from "./HorizontalList";
-const tileData = [
-  { title: "some long title here as a first example", img: "/16_9.jpeg" },
-  { title: "a", img: "/16_9.jpeg" },
-  { title: "b", img: "/16_9.jpeg" },
-  { title: "c", img: "/16_9.jpeg" },
-  { title: "d", img: "/16_9.jpeg" },
-  { title: "e", img: "/16_9.jpeg" },
-  { title: "f", img: "/16_9.jpeg" },
-  { title: "g", img: "/16_9.jpeg" },
-  { title: "h", img: "/16_9.jpeg" },
-  { title: "i", img: "/16_9.jpeg" },
-  { title: "some long title here as a second example", img: "/16_9.jpeg" },
-  { title: "aa", img: "/16_9.jpeg" },
-  { title: "bb", img: "/16_9.jpeg" },
-  { title: "cc", img: "/16_9.jpeg" },
-];
+import MainHeader from "./MainHeader";
 
 const DARK_GRAY = "#303030";
 
@@ -40,23 +25,33 @@ const layoutParams: any = {
   xl: { isHorizontal: true, cols: 7, cellHeight: 270 },
 };
 
+const videoListTitles = ["The newest hits", "Top movies", "Trending hits"];
 const VideoList = (props: any) => {
   const { width } = props;
   const classes = useStyles();
-
+  const { entitiesList } = useSelector((state: any) => state.media);
   const { isHorizontal, cols, cellHeight } = layoutParams[width];
 
   return (
     <div className={classes.root}>
-      {isHorizontal ? (
-        <HorizontalList
-          tileData={tileData}
-          cols={cols}
-          cellHeight={cellHeight}
-        />
-      ) : (
-        <VerticalList tileData={tileData} cols={cols} cellHeight={cellHeight} />
-      )}
+      <MainHeader text="OOT player" />
+      {isHorizontal
+        ? entitiesList.map((entities: any, index: number) => (
+            <HorizontalList
+              tileData={entities}
+              cols={cols}
+              cellHeight={cellHeight}
+              title={videoListTitles[index]}
+            />
+          ))
+        : entitiesList.map((entities: any, index: number) => (
+            <VerticalList
+              tileData={entities}
+              cols={cols}
+              cellHeight={cellHeight}
+              title={videoListTitles[index]}
+            />
+          ))}
     </div>
   );
 };

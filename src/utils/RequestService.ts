@@ -13,7 +13,7 @@ class RequestService {
       headers: {
         "Content-Type": JSON_CONTENT_TYPE,
         "X-Requested-With": "XMLHttpRequest",
-        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       baseURL: "https://thebetter.azurewebsites.net/",
     });

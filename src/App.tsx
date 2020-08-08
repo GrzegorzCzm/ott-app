@@ -40,7 +40,10 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <PrivateRoute path="/player" userAuthenticated={userAuthenticated}>
+          <PrivateRoute
+            path="/player/:id"
+            userAuthenticated={userAuthenticated}
+          >
             <Player />
           </PrivateRoute>
           <PrivateRoute path="/" userAuthenticated={userAuthenticated}>

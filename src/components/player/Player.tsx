@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
+import { getMediaInfoAction } from "../../redux/actions/media";
+import { showAlertAction } from "../../redux/actions/alert";
+import { useDispatch, useSelector } from "react-redux";
+import Splash from "../widgets/Splash";
 
-const Player = () => (
-  <div>
-    <ReactPlayer
-      playing
-      controls
-      light
-      url="https://cd-stream-od.telenorcdn.net/tnfbaod/SF/585db4b3e4b09db0cf348a64/dash_a1.ism/playlist.mpd"
-    />
-  </div>
-);
+const Player = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { loadingMediaInfo, mediaInfo } = useSelector(
+    (state: any) => state.media
+  );
+  const { isTestMode } = useSelector((state: any) => state.testMode);
+  useEffect(() => {
+    dispatch(getMediaInfoAction({ mediaId: id }, isTestMode));
+  }, [dispatch, id, isTestMode]);
+
+  const onError = (error: any) => {
+    dispatch(
+      showAlertAction(
+        error.error?.message ||
+          "Unexpected error has happened. Unable to play video"
+      )
+    );
+  };
+  return loadingMediaInfo ? (
+    <Splash />
+  ) : (
+    <div>
+      <ReactPlayer
+        stopOnUnmount
+        playing
+        controls
+        light
+        url={mediaInfo.ContentUrl}
+        onError={onError}
+      />
+    </div>
+  );
+};
 
 export default Player;

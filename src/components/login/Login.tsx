@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,8 +11,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { signInAction } from "../../redux/actions/auth";
+import { setTestModeAction } from "../../redux/actions/testMode";
 
 const DARK_GRAY = "#303030";
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: "15px",
+    borderRadius: theme.spacing(4),
   },
   avatar: {
     margin: theme.spacing(1),
@@ -55,22 +61,33 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state: any) => state.auth);
+  const { loading, userAuthenticated } = useSelector(
+    (state: any) => state.auth
+  );
+  const { isTestMode } = useSelector((state: any) => state.testMode);
 
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
 
   const onLogin = () => {
-    dispatch(signInAction({ Username: userName, Password: password }));
+    dispatch(
+      signInAction({ Username: userName, Password: password }, isTestMode)
+    );
   };
 
-  const updateUserName = (e: any) => {
-    setUserName(e.target.value);
+  const updateUserName = (event: any) => {
+    setUserName(event.target.value);
   };
 
-  const updatePassword = (e: any) => {
-    setPassword(e.target.value);
+  const updatePassword = (event: any) => {
+    setPassword(event.target.value);
   };
+
+  const updateTestMode = (event: any) => {
+    dispatch(setTestModeAction(event.target.checked));
+  };
+  console.log("login", userAuthenticated);
+  if (userAuthenticated) return <Redirect to={"/"} />;
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -127,6 +144,17 @@ const Login = () => {
             >
               {loading ? <CircularProgress size={24} /> : "Sign In"}
             </Button>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isTestMode}
+                  onChange={updateTestMode}
+                  color="primary"
+                  name="Test mode"
+                />
+              }
+              label="Test mode"
+            />
           </div>
         </div>
       </Grid>

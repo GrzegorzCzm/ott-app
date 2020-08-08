@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
+import ListHeader from "./ListHeader";
 
-const DARK_GRAY = "#303030";
+const LIGHT_GRAY = "#f2f2f2";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: "wrap",
       justifyContent: "space-around",
       overflow: "hidden",
-      backgroundColor: DARK_GRAY,
+      backgroundColor: LIGHT_GRAY,
+      margin: theme.spacing(4, 2, 2, 2),
+      borderRadius: theme.spacing(2),
+      padding: theme.spacing(2, 0),
     },
     gridList: {
       height: "40vh",
@@ -21,20 +26,36 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function VerticalList({ tileData, cols, cellHeight }: any) {
+export default function VerticalList({
+  tileData,
+  cols,
+  cellHeight,
+  title,
+}: any) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
+      <ListHeader text={title} />
       <GridList
         cellHeight={cellHeight}
         className={classes.gridList}
         cols={cols}
       >
         {tileData.map((tile: any) => (
-          <GridListTile key={tile.title}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar title={tile.title} />
+          <GridListTile key={tile.Title}>
+            <Link to={`/player/${tile.Id}`}>
+              <img
+                src={
+                  tile.Images.find(
+                    (image: any) => image.ImageTypeCode === "FRAME"
+                  ).Url
+                }
+                alt={tile.Title}
+                height={`${cellHeight}px`}
+              />
+              <GridListTileBar title={tile.Title} />
+            </Link>
           </GridListTile>
         ))}
       </GridList>

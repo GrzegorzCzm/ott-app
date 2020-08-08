@@ -1,5 +1,5 @@
 import { actionIds } from "../actions/auth";
-import { CLOSE_ALERT } from "../actions/alert";
+import { CLOSE_ALERT, SHOW_ALERT } from "../actions/alert";
 
 const initialState = {
   isAlert: false,
@@ -12,6 +12,11 @@ const alertReducer = (state: any = initialState, action: any) => {
       return {
         isAlert: true,
         alertText: action.payload?.Message || "Unexpected error...",
+      };
+    case SHOW_ALERT:
+      return {
+        isAlert: true,
+        alertText: action.payload,
       };
     case CLOSE_ALERT:
       return initialState;
