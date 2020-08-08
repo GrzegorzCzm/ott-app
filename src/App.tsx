@@ -1,42 +1,55 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import "./App.css";
 import Player from "./components/player/Player";
-import VideoList from "./components/videoList/VideoList";
-import Splash from "./components/splash/Splash";
+import Main from "./components/main/Main";
+import Login from "./components/login/Login";
+import Alert from "./components/alert/Alert";
 
-function App() {
+const PrivateRoute = ({ children, userAuthenticated, ...rest }: any) => {
+  const render = ({ location }: any) =>
+    userAuthenticated ? (
+      children
+    ) : (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: { from: location },
+        }}
+      />
+    );
+
+  return <Route {...rest} render={render} />;
+};
+
+const App = () => {
+  const { userAuthenticated } = useSelector((state: any) => state.auth);
+
   return (
     <Router>
+      <Alert />
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Video list</Link>
-            </li>
-            <li>
-              <Link to="/player">Player</Link>
-            </li>
-            <li>
-              <Link to="/splash">Splash</Link>
-            </li>
-          </ul>
-        </nav>
-
         <Switch>
-          <Route path="/player">
+          <Route path="/login">
+            <Login />
+          </Route>
+          <PrivateRoute path="/player" userAuthenticated={userAuthenticated}>
             <Player />
-          </Route>
-          <Route path="/splash">
-            <Splash />
-          </Route>
-          <Route path="/">
-            <VideoList />
-          </Route>
+          </PrivateRoute>
+          <PrivateRoute path="/" userAuthenticated={userAuthenticated}>
+            <Main />
+          </PrivateRoute>
         </Switch>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
