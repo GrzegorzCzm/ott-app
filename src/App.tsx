@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import "./App.css";
+// import "./App.css";
 import Player from "./components/player/Player";
 import Main from "./components/main/Main";
 import Login from "./components/login/Login";

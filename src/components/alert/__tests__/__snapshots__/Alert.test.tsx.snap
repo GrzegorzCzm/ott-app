@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alert renders correctly when isAlert is false 1`] = `
+<WithStyles(ForwardRef(Snackbar))
+  action={
+    <ForwardRef(WithStyles)
+      aria-label="close"
+      color="inherit"
+      onClick={[Function]}
+      size="small"
+    >
+      <UNDEFINED
+        fontSize="small"
+      />
+    </ForwardRef(WithStyles)>
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "left",
+      "vertical": "bottom",
+    }
+  }
+  autoHideDuration={15000}
+  message=""
+  onClose={[Function]}
+  open={false}
+/>
+`;
+
+exports[`Alert renders correctly when text is set and isAlert is true 1`] = `
+<WithStyles(ForwardRef(Snackbar))
+  action={
+    <ForwardRef(WithStyles)
+      aria-label="close"
+      color="inherit"
+      onClick={[Function]}
+      size="small"
+    >
+      <UNDEFINED
+        fontSize="small"
+      />
+    </ForwardRef(WithStyles)>
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "left",
+      "vertical": "bottom",
+    }
+  }
+  autoHideDuration={15000}
+  message="some text"
+  onClose={[Function]}
+  open={true}
+/>
+`;

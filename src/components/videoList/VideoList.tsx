@@ -20,20 +20,22 @@ const VideoList = ({ width }: VideoListProps) => {
   return (
     <div>
       {isHorizontal
-        ? entitiesList.map((entities: any, index: number) => (
-            <HorizontalList
-              key={index}
-              tileData={entities}
-              cols={cols}
-              cellHeight={cellHeight}
-              title={videoListTitles[index]}
-            />
-          ))
+        ? entitiesList.map((entities: any, index: number) => {
+            return (
+              <HorizontalList
+                key={index}
+                tileData={entities}
+                cols={entities.length < cols ? entities.length : cols}
+                cellHeight={cellHeight}
+                title={videoListTitles[index]}
+              />
+            );
+          })
         : entitiesList.map((entities: any, index: number) => (
             <VerticalList
               key={index}
               tileData={entities}
-              cols={cols}
+              cols={entities.length < cols ? entities.length : cols}
               cellHeight={cellHeight}
               title={videoListTitles[index]}
             />

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: "url(/camera.png)",
     backgroundRepeat: "no-repeat",
     backgroundColor: DARK_GRAY,
-    backgroundSize: "auto",
+    backgroundSize: "cover",
     backgroundPosition: "center",
   },
   paper: {

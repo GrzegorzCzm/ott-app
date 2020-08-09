@@ -43,14 +43,6 @@ class RequestService {
   post(url: string, data: any) {
     return this.axiosInstance.post(url, data);
   }
-
-  put(url: string, data: any) {
-    return this.axiosInstance.put(url, data);
-  }
-
-  delete(url: string, params: object) {
-    return this.axiosInstance.delete(url, { params });
-  }
 }
 
 export default new RequestService();

@@ -1,4 +1,4 @@
-export default {
+const signInResponse = {
   status: 200,
   data: {
     Result: {
@@ -16,3 +16,5 @@ export default {
     },
   },
 };
+
+export default signInResponse;
