@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Img } from "react-image";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
 import Header from "../widgets/Header";
-
+import { getImageUrl } from "./utils";
 const LIGHT_GRAY = "#f2f2f2";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,12 +58,9 @@ export default function HorizontalList({
         {tileData.map((tile: any) => (
           <GridListTile key={tile.Title}>
             <Link to={`/player/${tile.Id}`}>
-              <img
-                src={
-                  tile.Images.find(
-                    (image: any) => image.ImageTypeCode === "FRAME"
-                  ).Url
-                }
+              <Img
+                src={[getImageUrl(tile.Images), "/noimage.png"]}
+                loader={<CircularProgress size={24} />}
                 height={`${cellHeight}px`}
                 alt={tile.Title}
               />
@@ -72,11 +69,6 @@ export default function HorizontalList({
                 classes={{
                   root: classes.titleBar,
                 }}
-                actionIcon={
-                  <IconButton aria-label={`star ${tile.Title}`}>
-                    <StarBorderIcon />
-                  </IconButton>
-                }
               />
             </Link>
           </GridListTile>

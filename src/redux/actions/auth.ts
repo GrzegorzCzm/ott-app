@@ -23,11 +23,11 @@ export const signInAction = (data: Data, isTestMode: boolean) => (
     .then((response: any) => {
       if (response.status !== httpStatuses.OK_STATUS) {
         localStorage.removeItem("token");
-        dispatch(signInFailedAction());
+        dispatch(signInFailedAction(response.data));
       } else {
         if (response.data?.ResultType === "Error") {
           localStorage.removeItem("token");
-          dispatch(signInFailedAction());
+          dispatch(signInFailedAction(response.data));
         } else {
           localStorage.setItem(
             "token",
@@ -40,7 +40,7 @@ export const signInAction = (data: Data, isTestMode: boolean) => (
     })
     .catch((err) => {
       localStorage.removeItem("token");
-      dispatch(signInFailedAction());
+      dispatch(signInFailedAction(err.data));
     });
 };
 
@@ -49,8 +49,9 @@ const signInSuccessAction = (data: any) => ({
   payload: data,
 });
 
-const signInFailedAction = () => ({
+const signInFailedAction = (data: any) => ({
   type: actionIds.SIGN_IN_FAILED,
+  payload: data,
 });
 
 export const signOutAction = () => {

@@ -114,11 +114,9 @@ const Login = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="email"
               label="Username"
-              name="username"
               value={userName}
               onChange={updateUserName}
               autoFocus
@@ -126,9 +124,7 @@ const Login = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
-              name="password"
               label="Password"
               type="password"
               id="password"

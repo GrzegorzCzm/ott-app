@@ -22,6 +22,7 @@ const VideoList = ({ width }: VideoListProps) => {
       {isHorizontal
         ? entitiesList.map((entities: any, index: number) => (
             <HorizontalList
+              key={index}
               tileData={entities}
               cols={cols}
               cellHeight={cellHeight}
@@ -30,6 +31,7 @@ const VideoList = ({ width }: VideoListProps) => {
           ))
         : entitiesList.map((entities: any, index: number) => (
             <VerticalList
+              key={index}
               tileData={entities}
               cols={cols}
               cellHeight={cellHeight}
