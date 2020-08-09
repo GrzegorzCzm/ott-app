@@ -40,14 +40,6 @@ $codepen-logo-path: url("/camera.png");
   &::before {
     animation-delay: $anime-time * -0.5;
   }
-
-  // for debug
-  &:hover {
-    &::after,
-    &::before {
-      background-color: rgba(#f00, 0.3);
-    }
-  }
 }
 
 @keyframes clipMe {

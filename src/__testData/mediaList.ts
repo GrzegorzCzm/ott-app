@@ -27,7 +27,7 @@ export default {
             ImageTypeCode: "FRAME",
             ImageTypeDisplayName: "Frame",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/TopGun.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/TopGun.jpg",
             Width: 0,
             Height: 0,
           },
@@ -56,7 +56,7 @@ export default {
             ImageTypeCode: "FRAME",
             ImageTypeDisplayName: "Frame",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/Bumblebee.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/Bumblebee.jpg",
             Width: 0,
             Height: 0,
           },
@@ -72,7 +72,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/Shrek.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/Shrek.jpg",
           },
         ],
       },
@@ -86,7 +86,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/Minions.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/Minions.jpg",
           },
         ],
       },
@@ -100,7 +100,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/Scoob.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/Scoob.jpg",
           },
         ],
       },
@@ -114,7 +114,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/frozen.jpeg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/frozen.jpeg",
           },
         ],
       },
@@ -128,7 +128,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/Toystory.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/Toystory.jpg",
           },
         ],
       },
@@ -142,7 +142,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/grinch.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/grinch.jpg",
           },
         ],
       },
@@ -156,7 +156,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/incredibles.jpeg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/incredibles.jpeg",
           },
         ],
       },
@@ -170,7 +170,7 @@ export default {
           {
             ImageTypeCode: "FRAME",
             Url:
-              "https://oot-player-images.s3.eu-central-1.amazonaws.com/trolls.jpg",
+              "https://ott-app-player-images.s3.eu-central-1.amazonaws.com/trolls.jpg",
           },
         ],
       },
