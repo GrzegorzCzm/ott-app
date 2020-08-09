@@ -13,8 +13,12 @@ import Main from "./components/main/Main";
 import Login from "./components/login/Login";
 import Alert from "./components/alert/Alert";
 
+interface RenderActionProps {
+  location: string;
+}
+
 const PrivateRoute = ({ children, userAuthenticated, ...rest }: any) => {
-  const render = ({ location }: any) =>
+  const render = ({ location }: RenderActionProps) =>
     userAuthenticated ? (
       children
     ) : (

@@ -1,6 +1,7 @@
 import { fetchMediaList, getMediaInfo } from "../../utils/requestHandler";
 import httpStatuses from "../../utils/httpStatuses";
 import { actionIds as authActionIds } from "./auth";
+import { SHOW_ALERT } from "./alert";
 export const actionIds = {
   FETCH_MEDIA_LIST: "FETCH_MEDIA_LIST",
   FETCH_MEDIA_LIST_SUCCESS: "FETCH_MEDIA_LIST_SUCCESS",
@@ -8,28 +9,62 @@ export const actionIds = {
   GET_MEDIA_INFO: "GET_MEDIA_INFO",
   GET_MEDIA_INFO_SUCCESS: "GET_MEDIA_INFO_SUCCESS",
   GET_MEDIA_INFO_FAILED: "GET_MEDIA_INFO_FAILED",
+  RESET_DATA: "RESET_DATA",
 };
 
-export const fetchMediaAction = (data: any, isTestMode: boolean) => (
+const MEDIA_LIST_ERROR_TEXT = "Some of media lists could not be fetched. ";
+const entitiesMediaData = {
+  IncludeCategories: false,
+  IncludeImages: true,
+  IncludeMedia: false,
+  PageNumber: 1,
+  PageSize: 15,
+};
+
+export const fetchMediaAction = (mediaListIds: any, isTestMode: boolean) => (
   dispatch: any
 ) => {
   dispatch({
     type: actionIds.FETCH_MEDIA_LIST,
   });
-  fetchMediaList(data, isTestMode)
-    .then((response: any) => {
-      if (response.status !== httpStatuses.OK_STATUS) {
-        dispatch(fetchMediaFailedAction(response.data));
-      } else if (response.data?.ResultType === "Error") {
-        dispatch(fetchMediaFailedAction(response.data));
-      } else {
-        dispatch(fetchMediaSuccessAction(response.data));
-      }
+  const promiseList = mediaListIds.map((mediaListId: number) =>
+    fetchMediaList(
+      { ...entitiesMediaData, MediaListId: mediaListId },
+      isTestMode
+    )
+  );
+  Promise.all(promiseList)
+    .then((responsesList: any) => {
+      const successData: any[] = [];
+      const errorData: any[] = [];
+      responsesList.forEach((response: any) => {
+        if (response.status !== httpStatuses.OK_STATUS) {
+          errorData.push(response.data);
+        } else if (response.data?.ResultType === "Error") {
+          errorData.push(response.data);
+        } else {
+          successData.push(response.data.Entities);
+        }
+      });
+
+      if (errorData.length && !successData.length)
+        dispatch(fetchMediaFailedAction());
+      if (successData.length) dispatch(fetchMediaSuccessAction(successData));
+      if (errorData.length)
+        dispatch({
+          type: SHOW_ALERT,
+          payload: MEDIA_LIST_ERROR_TEXT,
+        });
     })
     .catch((err) => {
-      dispatch(fetchMediaFailedAction(err.data));
+      dispatch(fetchMediaFailedAction());
       if (err.response?.status === httpStatuses.UNAUTHORIZED) {
         dispatch({ type: authActionIds.RESET_DATA });
+      } else {
+        dispatch({
+          type: SHOW_ALERT,
+          payload: MEDIA_LIST_ERROR_TEXT,
+        });
       }
     });
 };
@@ -39,9 +74,8 @@ const fetchMediaSuccessAction = (data: any) => ({
   payload: data,
 });
 
-const fetchMediaFailedAction = (data: any) => ({
+const fetchMediaFailedAction = () => ({
   type: actionIds.FETCH_MEDIA_LIST_FAILED,
-  payload: data,
 });
 
 export const getMediaInfoAction = (data: any, isTestMode: boolean) => (
@@ -53,15 +87,15 @@ export const getMediaInfoAction = (data: any, isTestMode: boolean) => (
   getMediaInfo(data, isTestMode)
     .then((response: any) => {
       if (response.status !== httpStatuses.OK_STATUS) {
-        dispatch(getMediaInfoFailedAction(response.data));
+        dispatch(getMediaInfoFailedAction());
       } else if (response.data?.ResultType === "Error") {
-        dispatch(getMediaInfoFailedAction(response.data));
+        dispatch(getMediaInfoFailedAction());
       } else {
         dispatch(getMediaInfoSuccessAction(response.data));
       }
     })
     .catch((err) => {
-      dispatch(getMediaInfoFailedAction(err.data));
+      dispatch(getMediaInfoFailedAction());
       if (err.response?.status === httpStatuses.UNAUTHORIZED) {
         dispatch({ type: authActionIds.RESET_DATA });
       }
@@ -73,7 +107,6 @@ const getMediaInfoSuccessAction = (data: any) => ({
   payload: data,
 });
 
-const getMediaInfoFailedAction = (data: any) => ({
+const getMediaInfoFailedAction = () => ({
   type: actionIds.GET_MEDIA_INFO_FAILED,
-  payload: data,
 });

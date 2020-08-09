@@ -1,13 +1,24 @@
 import { actionIds } from "../actions/media";
 
-const initialState: any = {
+export interface Media {
+  loadingMediaList: boolean;
+  entitiesList: Object[];
+  loadingMediaInfo: boolean;
+  mediaInfo: {
+    Title?: string;
+    ContentUrl?: string;
+    Description?: string;
+  };
+}
+
+const initialState: Media = {
   loadingMediaList: false,
   entitiesList: [],
   loadingMediaInfo: false,
   mediaInfo: {},
 };
 
-const authReducer = (state: any = initialState, action: any) => {
+const authReducer = (state: Media = initialState, action: any) => {
   switch (action.type) {
     case actionIds.FETCH_MEDIA_LIST:
       return {
@@ -18,10 +29,11 @@ const authReducer = (state: any = initialState, action: any) => {
       return {
         ...state,
         loadingMediaList: false,
-        entitiesList: [...state.entitiesList, action.payload.Entities],
+        entitiesList: action.payload,
       };
     case actionIds.FETCH_MEDIA_LIST_FAILED:
     case actionIds.GET_MEDIA_INFO_FAILED:
+    case actionIds.RESET_DATA:
       return {
         ...initialState,
       };

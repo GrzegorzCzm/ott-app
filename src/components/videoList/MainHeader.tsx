@@ -20,12 +20,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MainHeader = ({ text }: any) => {
+interface MainHeaderParams {
+  text: string;
+}
+const MainHeader = ({ text }: MainHeaderParams) => {
   const classes = useStyles();
 
   return (
     <div className={classes.header}>
-      <img src="/logo192.png" alt={text} className={classes.img} />
+      <img src="/camera192.png" alt={text} className={classes.img} />
       <Typography variant="h4">{text}</Typography>
     </div>
   );

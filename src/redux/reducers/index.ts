@@ -1,8 +1,15 @@
 import { combineReducers } from "redux";
-import alerts from "./alerts";
-import auth from "./auth";
-import media from "./media";
-import testMode from "./testMode";
+import alerts, { Alerts } from "./alerts";
+import auth, { Auth } from "./auth";
+import media, { Media } from "./media";
+import testMode, { TestMode } from "./testMode";
+
+export interface CombinedStore {
+  alerts: Alerts;
+  auth: Auth;
+  media: Media;
+  testMode: TestMode;
+}
 
 const rootReducer = combineReducers({ alerts, auth, media, testMode });
 

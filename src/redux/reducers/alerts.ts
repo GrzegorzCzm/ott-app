@@ -1,12 +1,17 @@
 import { actionIds } from "../actions/auth";
 import { CLOSE_ALERT, SHOW_ALERT } from "../actions/alert";
 
-const initialState = {
+export interface Alerts {
+  isAlert: boolean;
+  alertText: string;
+}
+
+const initialState: Alerts = {
   isAlert: false,
   alertText: "",
 };
 
-const alertReducer = (state: any = initialState, action: any) => {
+const alertReducer = (state: Alerts = initialState, action: any) => {
   switch (action.type) {
     case actionIds.SIGN_IN_FAILED:
       return {

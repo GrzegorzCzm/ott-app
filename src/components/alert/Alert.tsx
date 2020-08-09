@@ -1,15 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
 import { closeAlertAction } from "../../redux/actions/alert";
+import { CombinedStore } from "../../redux/reducers";
 
 const Alert = () => {
   const dispatch = useDispatch();
-  const { isAlert, alertText } = useSelector((state: any) => state.alerts);
+  const { isAlert, alertText } = useSelector(
+    (state: CombinedStore) => state.alerts
+  );
 
   const closeAlert = () => {
     dispatch(closeAlertAction());
@@ -17,7 +19,7 @@ const Alert = () => {
 
   return (
     <Snackbar
-      autoHideDuration={6000}
+      autoHideDuration={15000}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "left",

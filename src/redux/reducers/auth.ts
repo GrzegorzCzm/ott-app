@@ -1,12 +1,16 @@
 import { actionIds } from "../actions/auth";
 
-const initialState: any = {
+export interface Auth {
+  loading: boolean;
+  userAuthenticated: boolean;
+}
+
+const initialState: Auth = {
   loading: false,
   userAuthenticated: false,
 };
 
-const authReducer = (state: any = initialState, action: any) => {
-  console.log("REDUCER", action);
+const authReducer = (state: Auth = initialState, action: any) => {
   switch (action.type) {
     case actionIds.SIGN_IN:
       return {

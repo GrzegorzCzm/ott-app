@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ListHeader = ({ text }: any) => {
+interface ListHeaderParams {
+  text?: string;
+}
+
+const ListHeader = ({ text }: ListHeaderParams) => {
   const classes = useStyles();
 
   return (

@@ -4,7 +4,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListHeader from "./ListHeader";
+import Header from "../widgets/Header";
 
 const LIGHT_GRAY = "#f2f2f2";
 
@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface VerticalListParams {
+  tileData: any;
+  cols: number;
+  cellHeight: number;
+  title: string;
+}
+
 export default function VerticalList({
   tileData,
   cols,
@@ -36,7 +43,7 @@ export default function VerticalList({
 
   return (
     <div className={classes.root}>
-      <ListHeader text={title} />
+      <Header text={title} />
       <GridList
         cellHeight={cellHeight}
         className={classes.gridList}

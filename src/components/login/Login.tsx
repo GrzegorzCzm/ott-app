@@ -17,6 +17,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import { signInAction } from "../../redux/actions/auth";
 import { setTestModeAction } from "../../redux/actions/testMode";
+import { CombinedStore } from "../../redux/reducers";
 
 const DARK_GRAY = "#303030";
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: DARK_GRAY,
   },
   image: {
-    backgroundImage: "url(/logo512.png)",
+    backgroundImage: "url(/camera.png)",
     backgroundRepeat: "no-repeat",
     backgroundColor: DARK_GRAY,
     backgroundSize: "auto",
@@ -62,9 +63,9 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { loading, userAuthenticated } = useSelector(
-    (state: any) => state.auth
+    (state: CombinedStore) => state.auth
   );
-  const { isTestMode } = useSelector((state: any) => state.testMode);
+  const { isTestMode } = useSelector((state: CombinedStore) => state.testMode);
 
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -86,7 +87,6 @@ const Login = () => {
   const updateTestMode = (event: any) => {
     dispatch(setTestModeAction(event.target.checked));
   };
-  console.log("login", userAuthenticated);
   if (userAuthenticated) return <Redirect to={"/"} />;
 
   return (

@@ -1,10 +1,14 @@
 import { SET_TEST_MODE } from "../actions/testMode";
 
-const initialState = {
+export interface TestMode {
+  isTestMode: boolean;
+}
+
+const initialState: TestMode = {
   isTestMode: false,
 };
 
-const testMode = (state: any = initialState, action: any) => {
+const testMode = (state: TestMode = initialState, action: any) => {
   switch (action.type) {
     case SET_TEST_MODE:
       return {

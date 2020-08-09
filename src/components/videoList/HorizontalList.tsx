@@ -6,7 +6,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-import ListHeader from "./ListHeader";
+import Header from "../widgets/Header";
 
 const LIGHT_GRAY = "#f2f2f2";
 
@@ -32,17 +32,24 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface HorizontalListParams {
+  tileData: any;
+  cols: number;
+  cellHeight: number;
+  title: string;
+}
+
 export default function HorizontalList({
   tileData,
   cols,
   cellHeight,
   title,
-}: any) {
+}: HorizontalListParams) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <ListHeader text={title} />
+      <Header text={title} />
       <GridList
         className={classes.gridList}
         cols={cols}

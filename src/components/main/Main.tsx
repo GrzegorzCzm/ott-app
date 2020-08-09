@@ -5,51 +5,36 @@ import { fetchMediaAction } from "../../redux/actions/media";
 import { useDispatch, useSelector } from "react-redux";
 import Splash from "../widgets/Splash";
 import TopBar from "../widgets/TopBar";
-const DARK_GRAY = "#303030";
+import { CombinedStore } from "../../redux/reducers";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: DARK_GRAY,
       height: "100vh",
     },
   })
 );
 
-const entitiesMediaData1 = {
-  MediaListId: 1,
-  IncludeCategories: false,
-  IncludeImages: true,
-  IncludeMedia: false,
-  PageNumber: 1,
-  PageSize: 15,
-};
-
-const entitiesMediaData2 = {
-  MediaListId: 2,
-  IncludeCategories: false,
-  IncludeImages: true,
-  IncludeMedia: false,
-  PageNumber: 1,
-  PageSize: 15,
-};
+const mediaListIds = [1, 2, 3];
 
 export default function SpacingGrid() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loadingMediaList } = useSelector((state: any) => state.media);
-  const { isTestMode } = useSelector((state: any) => state.testMode);
+  const { loadingMediaList, entitiesList } = useSelector(
+    (state: CombinedStore) => state.media
+  );
+  const { isTestMode } = useSelector((state: CombinedStore) => state.testMode);
 
   useEffect(() => {
-    dispatch(fetchMediaAction(entitiesMediaData1, isTestMode));
-    dispatch(fetchMediaAction(entitiesMediaData2, isTestMode));
-  }, [dispatch, isTestMode]);
+    if (!entitiesList.length)
+      dispatch(fetchMediaAction(mediaListIds, isTestMode));
+  }, [dispatch, entitiesList.length, isTestMode]);
 
   return loadingMediaList ? (
     <Splash />
   ) : (
     <div className={classes.root}>
-      <TopBar />
+      <TopBar isHomePage={true} />
       <VideoList />
     </div>
   );

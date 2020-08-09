@@ -8,7 +8,7 @@ $path-width: 2px;
 $main-color: #69ca62;
 $background-color: #303030;
 
-$codepen-logo-path: url("/logo512.png");
+$codepen-logo-path: url("/camera.png");
 
 %full-fill {
   position: absolute;
@@ -64,6 +64,10 @@ $codepen-logo-path: url("/logo512.png");
   75% {
     clip: rect(0px, $clip-size, $clip-size, $clip-size - $path-width);
   }
+}
+
+body {
+  background-color: #303030;
 }
 
 *,
